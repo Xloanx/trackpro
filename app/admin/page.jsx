@@ -1,6 +1,12 @@
 'use client'
 import { useState } from "react";
+import { motion } from "framer-motion";
 import AdminDashboard from "./components/adminDashboard";
+import AdminOrganizationsPage from "./components/adminOrganizations";
+import AppUsersPage from "./components/appUsers";
+import AppSubscriptionsPage from "./components/appSubscriptions";
+import AdminSystemPage from "./components/adminSystem";
+import SettingsPage from "../settings/page";
 import { Button } from "@/components/ui/button";
 import { 
   Zap,
@@ -20,14 +26,15 @@ import Link from "next/link";
 const AdminDashboardPage = () => {
   const [userRole] = useState('admin');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [currentUI, setCurrentUI] = useState("Dashboard")
 
   const navigationItems = [
-    { name: 'Overview', href: '/admin/dashboard', icon: BarChart3, current: true },
-    { name: 'Organizations', href: '/admin/organizations', icon: Building, current: false },
-    { name: 'Users', href: '/admin/users', icon: Users, current: false },
-    { name: 'Subscriptions', href: '/admin/subscriptions', icon: DollarSign, current: false },
-    { name: 'System', href: '/admin/system', icon: Shield, current: false },
-    { name: 'Settings', href: '/settings', icon: Settings, current: false },
+    { name: 'Dashboard', component: <AdminDashboard userRole={userRole} />, icon: BarChart3},
+    { name: 'Organizations', component: <AdminOrganizationsPage />, icon: Building},
+    { name: 'Users', component: <AppUsersPage />, icon: Users},
+    { name: 'Subscriptions', component: <AppSubscriptionsPage />, icon: DollarSign},
+    { name: 'System', component: <AdminSystemPage />, icon: Shield},
+    { name: 'Settings', component: <SettingsPage />, icon: Settings},
   ];
 
   return (
@@ -73,22 +80,24 @@ const AdminDashboardPage = () => {
       <div className="flex">
         {/* Sidebar */}
         {sidebarOpen && (
-          <div className="w-64 bg-white shadow-sm min-h-screen">
+          <div className="w-64 bg-white shadow-sm min-h-screen sm:block hidden">
             <nav className="mt-8 px-4">
               <ul className="space-y-2">
                 {navigationItems.map((item) => (
                   <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                        item.current
-                          ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
-                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-                      }`}
-                    >
-                      <item.icon className="mr-3 w-5 h-5" />
-                      {item.name}
-                    </Link>
+                    <Button
+                        variant="ghost"
+                        onClick={() => setCurrentUI(item.name)}
+                        className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md 
+                                    transition-colors cursor-pointer 
+                                    ${currentUI === item.name
+                                        ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
+                                        : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                                    }`}
+                        >
+                        <item.icon className="mr-3 w-5 h-5" />
+                        {item.name}
+                    </Button>
                   </li>
                 ))}
               </ul>
@@ -98,7 +107,7 @@ const AdminDashboardPage = () => {
 
         {/* Main Content */}
         <div className="flex-1">
-          <AdminDashboard userRole={userRole} />
+            {navigationItems.find((item) => item.name === currentUI)?.component}
         </div>
       </div>
     </div>
@@ -106,3 +115,5 @@ const AdminDashboardPage = () => {
 };
 
 export default AdminDashboardPage;
+
+
