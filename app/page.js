@@ -13,10 +13,10 @@ import {
   Shield,
   Sparkles,
   ArrowRight,
-  CheckCircle
+  CheckCircle,
+  FileText
 } from "lucide-react";
 import Link from "next/link";
-
 
 const Index = () => {
   const features = [
@@ -75,6 +75,12 @@ const Index = () => {
               </span>
             </div>
             <div className="flex items-center space-x-4">
+              <Link href="/complaint">
+                <Button variant="outline" className="flex items-center">
+                  <FileText className="w-4 h-4 mr-2" />
+                  Submit Complaint
+                </Button>
+              </Link>
               <Link href="/login">
                 <Button variant="ghost">Login</Button>
               </Link>
@@ -107,6 +113,12 @@ const Index = () => {
               <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
                 Start Free Trial
                 <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
+            <Link href="/complaint">
+              <Button size="lg" variant="outline">
+                <FileText className="mr-2 w-4 h-4" />
+                Submit Complaint
               </Button>
             </Link>
             <Link href="/demo">
@@ -201,12 +213,20 @@ const Index = () => {
           <p className="text-xl text-blue-100 mb-8">
             Join hundreds of businesses already using TrackPro to deliver exceptional customer experiences
           </p>
-          <Link href="/signup">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-              Start Your Free Trial Today
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/signup">
+              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+                Start Your Free Trial Today
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
+            <Link href="/complaint">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
+                <FileText className="mr-2 w-4 h-4" />
+                Submit a Complaint
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
