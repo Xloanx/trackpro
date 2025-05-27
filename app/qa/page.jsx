@@ -3,8 +3,8 @@ import { useState } from "react";
 import QADashboard from "./components/qaDashboard";
 import QAOrganizationPage from "./components/qaOrganization";
 import QATeamPage from "./components/qaTeam";
-import QATickets from "./components/qaTickets";
-import QAReports from "./components/qaReports";
+import QATicketsPage from "./components/qaTickets";
+import QAReportsPage from "./components/qaReports";
 import SettingsPage from "../settings/page";
 import { Button } from "@/components/ui/button";
 import { 
@@ -30,8 +30,8 @@ const QADashboardPage = () => {
     { name: 'Dashboard', component: <QADashboard userRole={userRole} organizationName="TechCorp Solutions"/>, icon: Settings},
     { name: 'Organizations', component: <QAOrganizationPage />, icon: Building},
     { name: 'Team', component: <QATeamPage />, icon: Users},
-    { name: 'Tickets', component: <QATickets />, icon: TicketIcon},
-    { name: 'Reports', component: <QAReports />, icon: FileText},
+    { name: 'Tickets', component: <QATicketsPage />, icon: TicketIcon},
+    { name: 'Reports', component: <QAReportsPage />, icon: FileText},
     { name: 'Settings', component: <SettingsPage />, icon: Settings},
   ];
 
