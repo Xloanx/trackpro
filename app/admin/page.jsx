@@ -1,6 +1,5 @@
 'use client'
 import { useState } from "react";
-import { motion } from "framer-motion";
 import AdminDashboard from "./components/adminDashboard";
 import AdminOrganizationsPage from "./components/adminOrganizations";
 import AppUsersPage from "./components/appUsers";
