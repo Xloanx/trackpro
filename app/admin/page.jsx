@@ -7,6 +7,7 @@ import AppUsersPage from "./components/appUsers";
 import AppSubscriptionsPage from "./components/appSubscriptions";
 import AdminSystemPage from "./components/adminSystem";
 import SettingsPage from "../settings/page";
+import TicketList from "./components/ticketList";
 import { Button } from "@/components/ui/button";
 import { 
   Zap,
@@ -30,11 +31,13 @@ const AdminDashboardPage = () => {
 
   const navigationItems = [
     { name: 'Dashboard', component: <AdminDashboard userRole={userRole} />, icon: BarChart3},
+    { name: 'Subscriptions', component: <AppSubscriptionsPage />, icon: DollarSign},
     { name: 'Organizations', component: <AdminOrganizationsPage />, icon: Building},
     { name: 'Users', component: <AppUsersPage />, icon: Users},
-    { name: 'Subscriptions', component: <AppSubscriptionsPage />, icon: DollarSign},
+    { name: 'TicketList', component: <TicketList />, icon: TicketIcon},
     { name: 'System', component: <AdminSystemPage />, icon: Shield},
     { name: 'Settings', component: <SettingsPage />, icon: Settings},
+    
   ];
 
   return (
