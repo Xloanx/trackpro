@@ -122,10 +122,12 @@ const QaTeamPage = () => {
                 <TrendingUp className="w-4 h-4 mr-2" />
                 Performance Report
               </Button>
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600">
-                <Users className="w-4 h-4 mr-2" />
-                Add Team Member
-              </Button>
+              <Link href="/qa/team/manage">
+                <Button className="bg-gradient-to-r from-blue-600 to-purple-600">
+                  <Users className="w-4 h-4 mr-2" />
+                  Add Team Member
+                </Button>
+              </Link>
             </div>
           </div>
 
