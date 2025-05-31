@@ -154,7 +154,7 @@ const QaOrganizationPage = () => {
               </Button>
               <Button className="bg-gradient-to-r from-blue-600 to-purple-600">
                 <FileText className="w-4 h-4 mr-2" />
-                Generate Report
+                Create Organization
               </Button>
             </div>
           </div>
