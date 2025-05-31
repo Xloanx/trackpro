@@ -1,5 +1,7 @@
 
 import { useState } from "react";
+import { DataPagination } from '@/components/data-pagination';
+import { usePagination } from '@/hooks/usePagination';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +16,7 @@ import {
   TicketIcon,
   Building,
   TrendingUp,
+  TrendingDown,
   AlertTriangle,
   CheckCircle,
   Clock,
@@ -38,6 +41,7 @@ const QaOrganizationPage = () => {
 
   const departmentPerformance = [
     {
+      id: 1,
       name: "Technical Support",
       tickets: 89,
       avgResolution: "4.2 hours",
@@ -45,6 +49,7 @@ const QaOrganizationPage = () => {
       efficiency: "high"
     },
     {
+      id: 2,
       name: "Billing Support", 
       tickets: 34,
       avgResolution: "2.1 hours",
@@ -52,6 +57,7 @@ const QaOrganizationPage = () => {
       efficiency: "high"
     },
     {
+      id: 3,
       name: "Product Support",
       tickets: 23,
       avgResolution: "6.5 hours", 
@@ -59,6 +65,7 @@ const QaOrganizationPage = () => {
       efficiency: "medium"
     },
     {
+      id: 4,
       name: "General Inquiries",
       tickets: 10,
       avgResolution: "1.8 hours",
@@ -97,6 +104,19 @@ const QaOrganizationPage = () => {
       status: "warning"
     }
   ];
+
+  const {
+    currentPage,
+    totalPages,
+    totalItems,
+    itemsPerPage,
+    paginatedData,
+    setCurrentPage,
+    setItemsPerPage,
+  } = usePagination({
+    data: departmentPerformance,
+    initialItemsPerPage: 3,
+  });
 
   const getEfficiencyColor = (efficiency) => {
     switch (efficiency) {
@@ -244,21 +264,35 @@ const QaOrganizationPage = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {departmentPerformance.map((dept, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+                {paginatedData.map((item) => (
+                  <div key={item.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
                     <div className="flex-1">
-                      <h4 className="font-medium text-gray-900 mb-1">{dept.name}</h4>
+                      <h4 className="font-medium text-gray-900 mb-1">{item.name}</h4>
                       <div className="flex items-center space-x-4 text-sm text-gray-600">
-                        <span><TicketIcon className="w-3 h-3 inline mr-1" />{dept.tickets} tickets</span>
-                        <span><Clock className="w-3 h-3 inline mr-1" />{dept.avgResolution} avg</span>
-                        <span><TrendingUp className="w-3 h-3 inline mr-1" />{dept.satisfaction} rating</span>
+                        <span><TicketIcon className="w-3 h-3 inline mr-1" />{item.tickets} tickets</span>
+                        <span><Clock className="w-3 h-3 inline mr-1" />{item.avgResolution} avg</span>
+                        <span><TrendingUp className="w-3 h-3 inline mr-1" />{item.satisfaction} rating</span>
                       </div>
                     </div>
-                    <Badge className={getEfficiencyColor(dept.efficiency)}>
-                      {dept.efficiency} efficiency
+                    <Badge className={getEfficiencyColor(item.efficiency)}>
+                      {item.efficiency} efficiency
                     </Badge>
                   </div>
                 ))}
+              </div>
+
+              {/* Pagination component */}
+              <div className="mt-6">
+                <DataPagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  totalItems={totalItems}
+                  itemsPerPage={itemsPerPage}
+                  onPageChange={setCurrentPage}
+                  onItemsPerPageChange={setItemsPerPage}
+                  showItemsPerPage={true}
+                  itemsPerPageOptions={[5, 10, 20, 50]}
+                />
               </div>
             </CardContent>
           </Card>
