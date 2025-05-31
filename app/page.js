@@ -14,7 +14,8 @@ import {
   Sparkles,
   ArrowRight,
   CheckCircle,
-  FileText
+  FileText,
+  Locate
 } from "lucide-react";
 import Link from "next/link";
 
@@ -75,10 +76,22 @@ const Index = () => {
               </span>
             </div>
             <div className="flex items-center space-x-4">
+              <div className="mr-7">
+                <Link href="/subscription" >
+                Pricing
+                </Link>
+              </div>
+              
               <Link href="/complaint">
                 <Button variant="outline" className="flex items-center">
                   <FileText className="w-4 h-4 mr-2" />
                   Submit Complaint
+                </Button>
+              </Link>
+              <Link href="/track">
+                <Button variant="outline" className="flex items-center">
+                  <Locate className="w-4 h-4 mr-2" />
+                  Track Your Ticket
                 </Button>
               </Link>
               <Link href="/login">
@@ -240,7 +253,7 @@ const Index = () => {
             <span className="text-xl font-bold">TrackPro</span>
           </div>
           <p className="text-gray-400">
-            © 2024 TrackPro. All rights reserved. Transforming service management with AI.
+            © {new Date().getFullYear()} TrackPro. All rights reserved. Transforming service management with AI.
           </p>
         </div>
       </footer>
