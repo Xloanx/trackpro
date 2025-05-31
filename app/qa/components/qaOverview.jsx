@@ -21,8 +21,7 @@ import {
 //   organizationName?: string;
 // }
 
-const Dashboard = ({ userRole, organizationName = "Your Organization" }) => {
-  const [activeTab, setActiveTab] = useState('overview');
+const QAOverview = ({ userRole, organizationName = "Your Organization" }) => {
 
   // Mock data - will be replaced with real data from Supabase
   const stats = {
@@ -260,4 +259,4 @@ const Dashboard = ({ userRole, organizationName = "Your Organization" }) => {
   );
 };
 
-export default Dashboard;
+export default QAOverview;
