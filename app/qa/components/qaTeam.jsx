@@ -1,5 +1,7 @@
 
 import { useState } from "react";
+import { DataPagination } from "@/components/data-pagination";
+import { usePagination } from "@/hooks/usePagination";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,9 +25,9 @@ import {
   CheckCircle,
   FileText
 } from "lucide-react";
-import Link from "next/link";
 
-const QaTeamPage = () => {
+
+const QaTeamPage = ({onManageTeam}) => {
   
 
   const teamMembers = [
@@ -105,6 +107,20 @@ const QaTeamPage = () => {
     }
   };
 
+const {
+    currentPage,
+    totalPages,
+    totalItems,
+    itemsPerPage,
+    paginatedData,
+    setCurrentPage,
+    setItemsPerPage,
+  } = usePagination({
+    data: teamMembers,
+    initialItemsPerPage: 3,
+  });
+
+
   return (
     <div className="min-h-screen bg-gray-50">
 
@@ -122,12 +138,13 @@ const QaTeamPage = () => {
                 <TrendingUp className="w-4 h-4 mr-2" />
                 Performance Report
               </Button>
-              <Link href="/qa/team/manage">
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600">
+              {/* <Link href="/qa/team/manage"> */}
+                <Button className="bg-gradient-to-r from-blue-600 to-purple-600"
+                        onClick={onManageTeam}>
                   <Users className="w-4 h-4 mr-2" />
-                  Add Team Member
+                  Team Management
                 </Button>
-              </Link>
+              {/* </Link> */}
             </div>
           </div>
 
@@ -187,7 +204,7 @@ const QaTeamPage = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                {teamMembers.map((member) => (
+                {paginatedData.map((member) => (
                   <div key={member.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
                     <div className="flex items-center space-x-4">
                       <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
@@ -239,6 +256,20 @@ const QaTeamPage = () => {
                   </div>
                 ))}
               </div>
+
+              {/* Pagination component */}
+              <div className="mt-6">
+                <DataPagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  totalItems={totalItems}
+                  itemsPerPage={itemsPerPage}
+                  onPageChange={setCurrentPage}
+                  onItemsPerPageChange={setItemsPerPage}
+                  showItemsPerPage={true}
+                  itemsPerPageOptions={[5, 10, 20, 50]}
+                />
+              </div>
             </CardContent>
           </Card>
 
@@ -250,7 +281,7 @@ const QaTeamPage = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {teamMembers.map((member) => (
+                {paginatedData.map((member) => (
                   <div key={member.id} className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
@@ -269,6 +300,19 @@ const QaTeamPage = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+              {/* Pagination component */}
+              <div className="mt-6">
+                <DataPagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  totalItems={totalItems}
+                  itemsPerPage={itemsPerPage}
+                  onPageChange={setCurrentPage}
+                  onItemsPerPageChange={setItemsPerPage}
+                  showItemsPerPage={true}
+                  itemsPerPageOptions={[5, 10, 20, 50]}
+                />
               </div>
             </CardContent>
           </Card>
